@@ -1,7 +1,7 @@
 # PR Response Doc — CineLog Watchlist Feature
 
 ## AI Usage
-<!-- Fill in at the end — how you used AI tools during this project -->
+AI was mostly used to navigate the git CLI commands. With so many options and my personal unfamiliarity with working with other people's repositories, I was able to get through this more quickly with the help of AI. During the rebase process, I had to go back a few steps, and it was able to walk me through aborting the rebase and going back to the start. 
 
 ## Comment 1 — Rename
 **What I did:** Renamed function calls to save_to_watchlist() to add_to_watchlist() to follow project code conventions.
@@ -35,9 +35,15 @@ Again, following the same structure as the other services, I added the AlreadyIn
 **Engagement with reviewer's point:** While I agree that this is the best position to take, the app may benefit long term from more filtering options being built in. As the app grows, long term users may want to view their watchlists holistically which will be difficult while sorting by time. On a large enough time scale, sorting alphabetically makes more sense to sort through a large amount of data.
 
 ## Comment 6 — Rebase
-**What conflicted:**
-**How I resolved it:**
-**How I verified no conflict remains:**
+**What conflicted:** .gitignore conflicted and the film UUID conflicted.
+**How I resolved it:** Code was modified such that the watchlist services were using film UUID rather than integer ID. 
+**How I verified no conflict remains:** The tests were once again run and ensured that they passed. 
 
 ## PR Description
-<!-- Written at the end — feature overview, design decisions, manual testing steps -->
+PR: Watchlist Feature - Naming, Deduplication, Tests, and Rebase onto main
+This PR implements the watchlist feature end-to-end: renamed save_to_watchlist() to add_to_watchlist() for naming consistency, added duplicate-entry protection (mirroring add_to_collection()'s pattern, with a new AlreadyInWatchlistError), and added test_watchlist.py covering the duplicate case, nonexistent-film case, and a happy-path addition, following the structure of test_collection.py. The branch was also rebased onto main, resolving a .gitignore conflict (merged both branches' ignore patterns) and completing the film_id migration from integer to UUID to match main's updated Film model. All tests pass post-rebase with no remaining integer-ID references.
+Two open items for reviewer input: default visibility (public currently defaults to True, reasoning being that CineLog leans social and a private  watchlists risk going unused, though this does mean less privacy by default and requires users to opt out deliberately. Sort order get_watchlist() currently sorts by date_added descending, prioritizing what users most recently engaged with, though this may not scale well for users with large, long-standing watchlists which is worth considering configurable sorting as a future enhancement.
+
+
+## git oneline screenshot
+![git oneline screenshot](oneline.png)
