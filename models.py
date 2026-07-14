@@ -72,7 +72,7 @@ class CollectionEntry(db.Model):
             "rating": self.rating,
         }
     
-    
+
 class WatchlistEntry(db.Model):
     """Represents a film a user wants to watch (saved for later)."""
     id = db.Column(db.String(36), primary_key=True, default=generate_uuid)
